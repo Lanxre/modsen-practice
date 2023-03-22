@@ -74,10 +74,9 @@ export default class MeetUpService{
 
     async deleteMeetUp(id){
         const meetUpResult = await db.query(
-            'DELETE FROM meetup where id = $1',
+            'DELETE FROM meetup where id = $1 RETURNING *',
             [id]
         )
-
         return new MeetUp(meetUpResult.rows[0])
     }
 }
