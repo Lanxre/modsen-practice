@@ -3,6 +3,8 @@ import MeetUpDTO from "../dtos/meetup.dto.js";
 import MeetUp from "../models/meetup.model.js";
 
 export default class MeetUpService{
+    
+    fields = ['theme_meet', 'description_meet', 'tags', 'locate_meet'] 
 
     /**
      * A Method designed to store data in a database
@@ -11,9 +13,11 @@ export default class MeetUpService{
      */
 
     async createMeetUp(meetUpDto){
-        const meetUpResult = await db.query(
-            `INSERT INTO meetup (theme_meet, description_meet, tags, locate_meet) ` +
-            `values ($1, $2, $3, $4) RETURNING *`,
+
+        const sql = `INSERT INTO meetup (${this.fields.join(', ')}) ` +
+        `values ($1, $2, $3, $4) RETURNING *`
+
+        const meetUpResult = await db.query(sql,
             [meetUpDto.theme_meet, meetUpDto.description_meet, meetUpDto.tags, meetUpDto.locate_meet]
         )
         const meetUp = new MeetUp(meetUpResult.rows[0])
@@ -51,9 +55,11 @@ export default class MeetUpService{
      */
 
     async updateMeetUp(meetUpDto){
-        const meetUpResult = await db.query(
-            'UPDATE meetups set theme_meet = $1, description_meet = $2, tags = $3, locate_meet = $4 ' +
-            'where id = $5 RETURNING *',
+
+        const sql = `UPDATE meetup set ${this.fields.map((meet, index) => `${meet} = $${index+1}`).join(', ')} ` +
+        'where id = $5 RETURNING *'
+
+        const meetUpResult = await db.query(sql,
             [meetUpDto.theme_meet, meetUpDto.description_meet, meetUpDto.tags, meetUpDto.locate_meet, meetUpDto.id]
         )
 
