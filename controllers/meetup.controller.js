@@ -24,7 +24,7 @@ export default class MeetUpController{
             this.service.sort(meetUps, req.query.sort);
         }
         
-        if(req.query.page){
+        if(req.query.page || req.query.limit){
             meetUps = await this.service.pagination(req.query);
         }
         
