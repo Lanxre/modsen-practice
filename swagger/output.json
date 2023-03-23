@@ -1,0 +1,259 @@
+{
+  "swagger": "2.0.0",
+  "info": {
+    "title": "MeetUps API",
+    "description": "MeetUps API for practice",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/api/",
+  "schemes": [
+    "http"
+  ],
+  "tags": [
+    {
+      "name": "MeetUp",
+      "description": "API for managing meetups"
+    }
+  ],
+  "paths": {
+    "/meet-up": {
+      "post": {
+        "summary": "Create a object MeetUp",
+        "description": "Create MeetUp",
+        "tags": ["MeetUp"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "MeetUp",
+            "description": "New meetup",
+            "required" : "true",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/MeetUp"
+            }
+          }
+        ],
+        
+        "responses": {
+          "201":{
+            "description": "Created MeetUp",
+            "schema":{
+              "type": "object",
+              "$ref": "#/definitions/MeetUp"
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Get a list of MeetUps",
+        "description": "Retrieve a list of MeetUps filtered, sorted, paginated",
+        "tags": ["MeetUp"],
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Name filterBy",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter_value",
+            "in": "query",
+            "description": "Value filter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Name sortBy",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Number Page to pagination",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The limit of the meet to return",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "201":{
+            "description": "A list meetups",
+            "schema":{
+              "type": "array",
+                "$ref": "#/definitions/MeetUps"
+            }
+          }
+        }
+      }
+    },
+    "/meet-up/{id}": {
+      "get": {
+        "summary": "Get a one MeetUp",
+        "description": "One MeetUp",
+        "tags": ["MeetUp"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "MeetUp Id",
+            "required":"true",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "201":{
+            "description": "Get MeetUp By Id",
+            "schema":{
+              "type": "object",
+              "$ref": "#/definitions/MeetUp"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a one MeetUp",
+        "description": "Update MeetUp By Id",
+        "tags": ["MeetUp"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required":"true",
+            "description": "MeetUp Id",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "201":{
+            "description": "Updated MeetUp By Id",
+            "schema":{
+              "type": "object",
+              "$ref": "#/definitions/MeetUp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a one MeetUp",
+        "description": "Delete MeetUp By Id",
+        "tags": ["MeetUp"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required":"true",  
+            "description": "MeetUp Id",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "201":{
+            "description": "Deleted MeetUp By Id",
+            "schema":{
+              "type": "object",
+              "$ref": "#/definitions/MeetUp"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "MeetUp": {
+      "type": "object",
+      "properties": {
+        "theme_meet": {
+          "type": "string",
+          "example": "theme_meet"
+        },
+        "description_meet": {
+          "type": "string",
+          "example": "description_meet"
+        },
+        "tags": {
+          "type": "string",
+          "example": "tags"
+        },
+        "locate_meet": {
+          "type": "string",
+          "example": "locate_meet"
+        }
+      }
+    },
+    "MeetUps": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/MeetUp"
+      }
+    },
+    "Text": {
+      "type": "object",
+      "properties": {
+        "theme_meet": {
+          "type": "string",
+          "example": "theme_meet"
+        },
+        "description_meet": {
+          "type": "string",
+          "example": "description_meet"
+        },
+        "tags": {
+          "type": "string",
+          "example": "tags"
+        },
+        "locate_meet": {
+          "type": "string",
+          "example": "locate_meet"
+        }
+      }
+    },
+    "Changes": {
+      "type": "object",
+      "properties": {
+        "changes": {
+          "type": "object",
+          "properties": {
+            "theme_meet": {
+              "type": "string",
+              "example": "theme_meet"
+            },
+            "description_meet": {
+              "type": "string",
+              "example": "description_meet"
+            },
+            "tags": {
+              "type": "string",
+              "example": "tags"
+            },
+            "locate_meet": {
+              "type": "string",
+              "example": "locate_meet"
+            }
+          }
+        }
+      }
+    }
+  }
+}

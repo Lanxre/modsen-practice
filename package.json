@@ -7,6 +7,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
+    "gen": "node ./swagger/swagger.js",
     "test": "test"
   },
   "repository": {
@@ -24,7 +25,9 @@
     "express": "^4.18.2",
     "express-joi-validation": "^5.0.1",
     "joi": "^17.9.1",
-    "pg": "^8.10.0"
+    "pg": "^8.10.0",
+    "swagger-autogen": "^2.23.1",
+    "swagger-ui-express": "^4.6.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.21"
