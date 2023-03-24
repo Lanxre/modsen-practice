@@ -36,7 +36,7 @@
         ],
         
         "responses": {
-          "201":{
+          "200":{
             "description": "Created MeetUp",
             "schema":{
               "type": "object",
@@ -92,7 +92,7 @@
           }
         ],
         "responses": {
-          "201":{
+          "200":{
             "description": "A list meetups",
             "schema":{
               "type": "array",
@@ -119,7 +119,7 @@
           }
         ],
         "responses": {
-          "201":{
+          "200":{
             "description": "Get MeetUp By Id",
             "schema":{
               "type": "object",
@@ -141,10 +141,20 @@
             "schema": {
               "type": "integer"
             }
+          },
+          {
+            "in": "body",
+            "name": "MeetUp",
+            "description": "Update meetup",
+            "required" : "true",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/MeetUp"
+            }
           }
         ],
         "responses": {
-          "201":{
+          "200":{
             "description": "Updated MeetUp By Id",
             "schema":{
               "type": "object",
@@ -169,7 +179,7 @@
           }
         ],
         "responses": {
-          "201":{
+          "200":{
             "description": "Deleted MeetUp By Id",
             "schema":{
               "type": "object",
@@ -198,7 +208,7 @@
         },
         "locate_meet": {
           "type": "string",
-          "example": "locate_meet"
+          "example": "22.03.2023/Belarus, Gomel"
         }
       }
     },
@@ -225,7 +235,7 @@
         },
         "locate_meet": {
           "type": "string",
-          "example": "locate_meet"
+          "example": "22.03.2023/Belarus, Gomel"
         }
       }
     },
@@ -249,7 +259,7 @@
             },
             "locate_meet": {
               "type": "string",
-              "example": "locate_meet"
+              "example": "22.03.2023/Belarus, Gomel"
             }
           }
         }

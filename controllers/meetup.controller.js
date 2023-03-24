@@ -33,18 +33,30 @@ export default class MeetUpController{
     async getOneMeet(req, res){
         const meetUp = await this.service.getOneMeetUp(req.params.id);
 
-        res.json(meetUp);
+        if(meetUp.message){
+            res.status(404).json(meetUp)
+        }else{
+            res.json(meetUp);
+        }
+
     }
     async updateMeet(req, res){
         const meetUpDto = new MeetUpDTO({...req.body, id: req.params.id});
         const meetUpResult = await this.service.updateMeetUp(meetUpDto);
-
-        res.json(meetUpResult);
+        if(meetUpResult.message){
+            res.status(404).json(meetUpResult)
+        }else{
+            res.json(meetUpResult);
+        }
     }
     async deleteMeet(req, res){
         const meetUp = await this.service.deleteMeetUp(req.params.id);
-        
-        res.json(meetUp);
+
+        if(meetUp.message){
+            res.status(404).json(meetUp)
+        }else{
+            res.json(meetUp);
+        }
     }
 
 }

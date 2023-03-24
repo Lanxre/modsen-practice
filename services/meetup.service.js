@@ -44,8 +44,8 @@ export default class MeetUpService{
 
     async getOneMeetUp(id){
         const meetUps = await db.query(`SELECT * FROM meetup where id = $1`, [id]);
-        
-        return new MeetUp(meetUps.rows[0]);
+
+        return this.isExistMeet(meetUps.rows[0]);
     }
 
     /**
@@ -63,7 +63,7 @@ export default class MeetUpService{
             [meetUpDto.theme_meet, meetUpDto.description_meet, meetUpDto.tags, meetUpDto.locate_meet, meetUpDto.id]
         );
 
-        return new MeetUp(meetUpResult.rows[0]);
+        return this.isExistMeet(meetUpResult.rows[0]);
     }
 
     /**
@@ -77,7 +77,7 @@ export default class MeetUpService{
             'DELETE FROM meetup where id = $1 RETURNING *',
             [id]
         );
-        return new MeetUp(meetUpResult.rows[0]);
+        return this.isExistMeet(meetUpResult.rows[0]);
     }
 
     async pagination(paginationOption){
@@ -138,5 +138,15 @@ export default class MeetUpService{
 
         return filterMeetUps;
 
+    }
+
+    async isExistMeet(meetUpResult){
+        if(!meetUpResult){
+            return {
+                "message": "invalid id"
+            }
+        }
+
+        return new MeetUp(meetUpResult)
     }
 }
