@@ -35,7 +35,7 @@ export default class UserController{
             
             this.refreshTokens.push(refreshToken);
             
-            res.json({ ...user, accessToken: accessToken });
+            res.json({ ...user, accessToken: accessToken, refreshToken: refreshToken });
         }
 
     }
