@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { createValidator } from 'express-joi-validation'
 import { MeetUpSchema, MeetUpIdSchema } from "../schems/meetUp.schema.js";
+import { requireAuth } from "../auth/passport.js";
 
 import MeetUpController from "../controllers/meetup.controller.js";
 
@@ -11,22 +12,27 @@ const validator = createValidator()
 
 
 router.post('/meet-up',
+            requireAuth,
             validator.body(MeetUpSchema),
             meetupController.createMeet.bind(meetupController));
 
-router.get('/meet-up', 
+router.get('/meet-up',
+            requireAuth,
             meetupController.getMeets.bind(meetupController));
 
-router.get('/meet-up/:id', 
+router.get('/meet-up/:id',
+            requireAuth, 
             validator.params(MeetUpIdSchema),
             meetupController.getOneMeet.bind(meetupController));
 
 router.put('/meet-up/:id',
+            requireAuth,
             validator.params(MeetUpIdSchema),
             validator.body(MeetUpSchema),
             meetupController.updateMeet.bind(meetupController));
 
 router.delete('/meet-up/:id',
+            requireAuth,
             validator.params(MeetUpIdSchema),
             meetupController.deleteMeet.bind(meetupController));
 

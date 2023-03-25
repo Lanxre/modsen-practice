@@ -1,7 +1,9 @@
 import express from "express";
 import meetUpRouter from "./routes/meetup.router.js"
+import userRouter from "./routes/user.router.js"
 import fs from 'fs'
 import SwaggerUi from "swagger-ui-express";
+import {passport} from "./auth/passport.js"
 
 import * as dotenv from 'dotenv';
 
@@ -15,11 +17,13 @@ const swaggerFile = JSON.parse(fs.readFileSync('./swagger/output.json'))
 
 
 app.use(express.json())
+app.use(passport.initialize());
 app.use('/api-doc', SwaggerUi.serve, SwaggerUi.setup(swaggerFile))
 app.use('/api', meetUpRouter)
+app.use('/api', userRouter)
 
 app.listen(port, () => {
-    console.log(`server start on port: ${port}`)
+    console.log(`server start on port: ${port}`) 
 })
 
 

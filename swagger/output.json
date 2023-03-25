@@ -14,6 +14,10 @@
     {
       "name": "MeetUp",
       "description": "API for managing meetups"
+    },
+    {
+      "name": "Users",
+      "description": "API for managing users"
     }
   ],
   "paths": {
@@ -188,6 +192,108 @@
           }
         }
       }
+    },
+    "/register" : {
+      "post": {
+        "summary": "Create New User",
+        "description": "Create User",
+        "tags": ["Users"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "User",
+            "description": "New user",
+            "required" : "true",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        
+        "responses": {
+          "200":{
+            "description": "Created User",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type" : "integer",
+                  "example": 1
+                },
+                "username": {
+                  "type": "string",
+                  "example": "Lanore"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "secret password"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "some@gmail.com"
+                },
+                "accessToken": {
+                  "type": "string",
+                  "example": "string"
+                }
+              }
+            }
+            
+          }
+        }
+      }
+    },
+    "/login" : {
+      "post": {
+        "summary": "Login User",
+        "description": "Login User",
+        "tags": ["Users"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "User",
+            "description": "Auth user",
+            "required" : "true",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        
+        "responses": {
+          "200":{
+            "description": "Auth User",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type" : "integer",
+                  "example": 1
+                },
+                "username": {
+                  "type": "string",
+                  "example": "Lanore"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "secret password"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "some@gmail.com"
+                },
+                "accessToken": {
+                  "type": "string",
+                  "example": "string"
+                }
+              }
+            }
+            
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -209,6 +315,23 @@
         "locate_meet": {
           "type": "string",
           "example": "22.03.2023/Belarus, Gomel"
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "example": "Lanore"
+        },
+        "password": {
+          "type": "string",
+          "example": "secret password"
+        },
+        "email": {
+          "type": "string",
+          "example": "some@gmail.com"
         }
       }
     },
