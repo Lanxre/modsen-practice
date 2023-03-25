@@ -9,6 +9,7 @@ dotenv.config();
 export default class UserController{
 
     constructor(){
+        this.refreshTokens = [];
         this.service = new UserService();
     }
 
@@ -30,9 +31,32 @@ export default class UserController{
             res.status(401).send({"message": 'Unauthorized - wrong password or username'});
         }else{
             const accessToken = pkg_jwt.sign({ sub: user.id }, process.env.jwtSecret , { expiresIn: '15m' });
+            const refreshToken = pkg_jwt.sign({ userId: user.id }, process.env.refreshSecret, { expiresIn: '7d' });
+            
+            this.refreshTokens.push(refreshToken);
+            
             res.json({ ...user, accessToken: accessToken });
         }
 
+    }
+
+    async refreshToken(req, res){
+        const refreshToken = req.body.refreshToken;
+
+        if (!refreshToken) {
+          return res.sendStatus(401);
+        }
+        if (!this.refreshTokens.includes(refreshToken)) {
+          return res.sendStatus(403);
+        }
+      
+        jwt.verify(refreshToken, process.env.refreshSecret, function(err, decoded) {
+          if (err) {
+            return res.sendStatus(403);
+          }
+          const accessToken = pkg_jwt.sign({ userId: decoded.id }, process.env.jwtSecret , { expiresIn: '15m' });
+          res.json({ accessToken });
+        });
     }
 
 }
