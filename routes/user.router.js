@@ -14,7 +14,7 @@ router.post('/register',
 router.post('/login',
             userController.loginUser.bind(userController))
 
-router.post('/token',
+router.post('/refresh-token',
             userController.refreshToken.bind(userController))
 
 export default router;

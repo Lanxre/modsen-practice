@@ -287,6 +287,10 @@
                 "accessToken": {
                   "type": "string",
                   "example": "string"
+                },
+                "refreshToken": {
+                  "type": "string",
+                  "example": "string"
                 }
               }
             }
@@ -294,7 +298,46 @@
           }
         }
       }
+    },
+    "/refresh-token":{
+      "post": {
+        "summary": "Refresh Token",
+        "description": "send refresh token for create new token",
+        "tags": ["Users"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Refresh Token",
+            "description": "token",
+            "required" : "true",
+            "schema": {
+              "type": "object",
+              "properties":{
+                "refreshToken": {
+                  "type" : "string",
+                  "example": "token"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200":{
+            "description": "New Token",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "type" : "string",
+                  "example": "token"
+                }
+              }
+            }
+            
+          }
+        }
     }
+  }
   },
   "definitions": {
     "MeetUp": {

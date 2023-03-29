@@ -20,6 +20,7 @@ export default class UserController{
         }else{
             const user = await this.service.createUser(userDto);
             const accessToken = pkg_jwt.sign({ sub: user.id }, process.env.jwtSecret , { expiresIn: '15m' });
+            
             res.json({ ...user, accessToken: accessToken });
         }
     }
@@ -55,7 +56,7 @@ export default class UserController{
             return res.sendStatus(403);
           }
           const accessToken = pkg_jwt.sign({ userId: decoded.id }, process.env.jwtSecret , { expiresIn: '15m' });
-          res.json({ accessToken });
+          res.json({ token: accessToken });
         });
     }
 
