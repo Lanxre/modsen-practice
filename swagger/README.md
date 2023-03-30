@@ -1,7 +1,7 @@
 # Api
 Open [api-doc](http://localhost:3000/api-doc/) and see swagger.
 
-![image](https://user-images.githubusercontent.com/73068449/227377095-7efdd081-ba6e-4e0c-bb2b-aa41cc22e43e.png)
+![image](https://user-images.githubusercontent.com/73068449/228819033-5c427a3f-9109-4e4c-9b74-1c07e7f1968f.png)
 
 # doc
 
