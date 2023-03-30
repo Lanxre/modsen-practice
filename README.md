@@ -32,6 +32,9 @@ Open [http://localhost:3000](http://localhost:3000) and take a look around.
 
 # database
 Postgresql is used as a database with the following fields
+
+Meetups:
+
 |    Column            |     TYPE                   | 
 |    :---:             |     :---:                  |
 | id                   | integer                    |
@@ -40,3 +43,22 @@ Postgresql is used as a database with the following fields
 | tags                 | character varying(150)     |
 | locate_meet          | character varying(50)      |
 
+Role:
+
+|    Column            |     TYPE                   | 
+|    :---:             |     :---:                  |
+| id                   | integer                    |
+| name                 | character varying(50)      |
+| description          | character varying(255)     |
+| created_at           | timestamp                  |
+| updated_at           | timestamp                  |
+
+Users:
+
+|    Column            |     TYPE                   | 
+|    :---:             |     :---:                  |
+| id                   | integer                    |
+| username             | character varying(20)      |
+| password             | character varying(150)     |
+| email                | character varying(150)     |
+| role_id              | integer                    |
