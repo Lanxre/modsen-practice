@@ -12,4 +12,4 @@ export default class UserDTO{
         this.email = email;
     }
 
-}
+};

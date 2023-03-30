@@ -25,7 +25,7 @@ export default class UserService{
             [userDto.username]
         );
         
-        return userResult.rows[0].exists
+        return userResult.rows[0].exists;
     }
 
     async findUser(userDto){

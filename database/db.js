@@ -11,7 +11,7 @@ const pool = new Pool({
     host: process.env.db_host,
     port: process.env.db_port,
     database:  process.env.db_name
-})
+});
 
 
 

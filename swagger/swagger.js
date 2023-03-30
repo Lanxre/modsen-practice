@@ -2,7 +2,7 @@ import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
 import swaggerAutogen from 'swagger-autogen'
 
-const _dirname = dirname(fileURLToPath(import.meta.url))
+const _dirname = dirname(fileURLToPath(import.meta.url));
 
 const doc = {
     info: {
@@ -41,12 +41,12 @@ const doc = {
     },
     host: 'localhost:3000/api/',
     schemes: ['http']
-   }
+};
 
-const outputFile = join(_dirname, 'output.json')
+const outputFile = join(_dirname, 'output.json');
 
-const endpointsFiles = [join(_dirname, '../routes/meetup.router.js')]
+const endpointsFiles = [join(_dirname, '../routes/meetup.router.js')];
 
 swaggerAutogen()(outputFile, endpointsFiles, doc).then(({ success }) => {
- console.log(`Generated: ${success}`)
+    console.log(`Generated: ${success}`);
 })

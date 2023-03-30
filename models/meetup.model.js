@@ -14,4 +14,4 @@ export default class MeetUp{
         this.locate_meet = locate_meet;
     }
 
-}
+};

@@ -14,4 +14,4 @@ export default class User{
         this.role_id = role_id;
     }
 
-}
+};

@@ -132,7 +132,7 @@ export default class MeetUpService{
             description_meet: (meet) => meet.description_meet.toLowerCase().includes(filterOption.filter_value.toLowerCase()),
             tags: (meet) => meet.tags.toLowerCase().includes(filterOption.filter_value.toLowerCase()),
             locate_meet: (meet) => meet.locate_meet.toLowerCase().includes(filterOption.filter_value.toLowerCase()),
-        }
+        };
 
         const filterMeetUps = meetUps.filter(filterFunctions[filterOption.filter_name]);
 
@@ -144,9 +144,9 @@ export default class MeetUpService{
         if(!meetUpResult){
             return {
                 "message": "invalid id"
-            }
+            };
         }
 
-        return new MeetUp(meetUpResult)
+        return new MeetUp(meetUpResult);
     }
 }

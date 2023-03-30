@@ -11,19 +11,19 @@ dotenv.config();
 
 
 const app = express();
-const port = process.env.port || 8080
+const port = process.env.port || 8080;
 
-const swaggerFile = JSON.parse(fs.readFileSync('./swagger/output.json'))
+const swaggerFile = JSON.parse(fs.readFileSync('./swagger/output.json'));
 
 
-app.use(express.json())
+app.use(express.json());
 app.use(passport.initialize());
-app.use('/api-doc', SwaggerUi.serve, SwaggerUi.setup(swaggerFile))
-app.use('/api', meetUpRouter)
-app.use('/api', userRouter)
+app.use('/api-doc', SwaggerUi.serve, SwaggerUi.setup(swaggerFile));
+app.use('/api', meetUpRouter);
+app.use('/api', userRouter);
 
 app.listen(port, () => {
-    console.log(`server start on port: ${port}`) 
+    console.log(`server start on port: ${port}`);
 })
 
 

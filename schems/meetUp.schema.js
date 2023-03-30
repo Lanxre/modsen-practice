@@ -22,8 +22,8 @@ export const MeetUpSchema = Joi.object({
         .max(50)
         .pattern(/^\d{2}.\d{2}.\d{4}\/.+$/)
         .required()
-})
+});
 
 export const MeetUpIdSchema = Joi.object({
     id: Joi.number().required()
-})
+});
