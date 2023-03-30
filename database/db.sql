@@ -15,3 +15,28 @@ CREATE TABLE users(
     password VARCHAR(150),
     email VARCHAR(150)
 );
+
+CREATE TABLE role (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(50) NOT NULL,
+  description VARCHAR(255),
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+ALTER TABLE users
+ADD COLUMN role_id INTEGER;
+
+ALTER TABLE users
+ADD CONSTRAINT fk_users_role_id
+  FOREIGN KEY (role_id)
+  REFERENCES role(id);
+
+
+DELETE FROM users;
+TRUNCATE users RESTART IDENTITY;
+
+INSERT INTO role (name, description)
+VALUES
+  ('admin', 'This role has full access to the system'),
+  ('user', 'This role has limited access to the system');
