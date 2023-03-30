@@ -3,12 +3,12 @@ import User from "../models/user.model.js";
 
 export default class UserService{
     
-    fields = ['username', 'password', 'email'];
+    fields = ['username', 'password', 'email', 'role_id'];
 
     async createUser(userDto){
 
         const sql = `INSERT INTO users (${this.fields.join(', ')}) ` +
-        `values ($1, $2, $3) RETURNING *`;
+        `values ($1, $2, $3, 2) RETURNING *`;
 
         const userResult = await db.query(sql,
             [userDto.username, userDto.password, userDto.email]
