@@ -24,7 +24,14 @@ passport.use(new JwtStrategy(jwtOpts, async function(jwt_payload, done) {
     }
 }));
 
+async function requireAdmin(req, res, next) {
+    if (req.user.role_id !== 1) {
+        return res.status(403).json({ message: 'Access denied. Only admins can access this resource.' });
+    }
+    
+    next();
+}
 
 const requireAuth = passport.authenticate('jwt', { session: false });
 
-export {passport, requireAuth}
+export {passport, requireAuth, requireAdmin}
