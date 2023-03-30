@@ -1,8 +1,8 @@
+import fs from 'fs'
 import express from "express";
+import SwaggerUi from "swagger-ui-express";
 import meetUpRouter from "./routes/meetup.router.js"
 import userRouter from "./routes/user.router.js"
-import fs from 'fs'
-import SwaggerUi from "swagger-ui-express";
 import {passport} from "./auth/passport.js"
 
 import * as dotenv from 'dotenv';
