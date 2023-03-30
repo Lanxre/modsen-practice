@@ -8,7 +8,7 @@ export default class MeetUpService{
 
     /**
      * A Method designed to store data in a database
-     * @param {MeetUpDTO} meetUpDto - dto
+     * @param {MeetUpDTO} meetUpDto - Dto
      * @returns {MeetUp | null} If the object was created, it will return successfully
      */
 
@@ -50,7 +50,7 @@ export default class MeetUpService{
 
     /**
      * The method is intended for updating data in the database
-     * @param {MeetUpDTO} meetUpDto - dto
+     * @param {MeetUpDTO} meetUpDto - Dto
      * @returns {MeetUp | null} - Returns the object if it was successfully updated
      */
 
@@ -80,6 +80,14 @@ export default class MeetUpService{
         return this.isExistMeet(meetUpResult.rows[0]);
     }
 
+    /**
+     * A method that allows you to paggination an array by params
+     * @param {object} paginationOption - Options that store the following parameters
+     * @param {number} page - The number of the page from which the data is returned
+     * @param {number} limit - The maximum number of records that can be
+     * @returns {object} An object that stores a list of data divided into two parameters
+     */
+
     async pagination(paginationOption){
         const page = parseInt(paginationOption.page) || 1; 
         const limit = parseInt(paginationOption.limit) || 5;
@@ -108,6 +116,12 @@ export default class MeetUpService{
         return results;
     }
 
+    /**
+     * A method that allows you to sort an array by params
+     * @param {Array.<MeetUp>} meetUps - Not sorted array
+     * @param {object} sortOption - Sort paramas {id, theme_meet, description_meet...}
+     * @returns {Array.<MeetUp>} - Sorted array
+     */
 
     async sort(meetUps, sortOption){
 
@@ -124,6 +138,12 @@ export default class MeetUpService{
         return sortedMeetUps;
     }
 
+    /**
+     * A method that allows you to filter an array by params
+     * @param {Array.<MeetUp>} meetUps - Not filtered array
+     * @param {object} filterOption - Filter paramas {id, theme_meet, description_meet...}
+     * @returns {Array.<MeetUp>} - Sampling from an array
+     */
 
     async filter(meetUps, filterOption){
 
@@ -139,6 +159,12 @@ export default class MeetUpService{
         return filterMeetUps;
 
     }
+
+    /**
+     * A method that allows you to check the correctness of the data
+     * @param {object} meetUpResult - Data from the database
+     * @returns {MeetUp | object} - Object with error or new MeetUp
+     */
 
     async isExistMeet(meetUpResult){
         if(!meetUpResult){
