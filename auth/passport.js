@@ -2,6 +2,7 @@ import passport from "passport";
 import pjw from 'passport-jwt';
 import * as dotenv from 'dotenv';
 
+import Role from "../models/role.model.js"
 import UserService from "../services/user.service.js";
 
 dotenv.config();
@@ -25,7 +26,7 @@ passport.use(new JwtStrategy(jwtOpts, async function(jwt_payload, done) {
 }));
 
 async function requireAdmin(req, res, next) {
-    if (req.user.role_id !== 1) {
+    if (req.user.role_id !== Role.Admin) {
         return res.status(403).json({ message: 'Access denied. Only admins can access this resource.' });
     }
     
