@@ -1,5 +1,4 @@
 import db from "../database/db.js"
-import MeetUpDTO from "../dtos/meetup.dto.js";
 import MeetUp from "../models/meetup.model.js";
 
 export default class MeetUpService{
@@ -157,7 +156,6 @@ export default class MeetUpService{
         const filterMeetUps = meetUps.filter(filterFunctions[filterOption.filter_name]);
 
         return filterMeetUps;
-
     }
 
     /**

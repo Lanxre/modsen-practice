@@ -22,14 +22,12 @@ const doc = {
           $ref: '#/definitions/MeetUp'
         }
       ],
-      // модель объекта с текстом новой задачи
       Text: {
         theme_meet: 'theme_meet',
         description_meet: 'description_meet',
         tags: 'tags',
         locate_meet: 'locate_meet',
       },
-      // модель объекта с изменениями существующей задачи
       Changes: {
         changes: {
             theme_meet: 'theme_meet',

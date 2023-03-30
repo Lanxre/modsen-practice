@@ -6,7 +6,7 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 
-export default class UserController{
+export default class UserController {
 
     constructor(){
         this.refreshTokens = [];
@@ -51,7 +51,7 @@ export default class UserController{
           return res.sendStatus(403);
         }
       
-        jwt.verify(refreshToken, process.env.refreshSecret, function(err, decoded) {
+        pkg_jwt.verify(refreshToken, process.env.refreshSecret, function(err, decoded) {
           if (err) {
             return res.sendStatus(403);
           }
@@ -59,5 +59,4 @@ export default class UserController{
           res.json({ token: accessToken });
         });
     }
-
 }

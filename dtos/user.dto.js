@@ -1,4 +1,4 @@
-export default class UserDTO{
+export default class UserDTO {
 
     constructor({
         id,
@@ -12,4 +12,4 @@ export default class UserDTO{
         this.email = email;
     }
 
-};
+}

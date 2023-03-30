@@ -1,4 +1,4 @@
-export default class MeetUp{
+export default class MeetUp {
 
     constructor({
         id,
@@ -13,5 +13,4 @@ export default class MeetUp{
         this.tags = tags;
         this.locate_meet = locate_meet;
     }
-
-};
+}

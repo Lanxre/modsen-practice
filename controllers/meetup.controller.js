@@ -1,12 +1,11 @@
 import MeetUpDTO from "../dtos/meetup.dto.js"
 import MeetUpService from "../services/meetup.service.js"
 
-export default class MeetUpController{
+export default class MeetUpController {
 
     constructor(){
         this.service = new MeetUpService();
     }
-
     async createMeet(req, res){
         const meetUpDto = new MeetUpDTO(req.body);
         const meetUp = await this.service.createMeetUp(meetUpDto);
@@ -58,5 +57,4 @@ export default class MeetUpController{
             res.json(meetUp);
         }
     }
-
 }

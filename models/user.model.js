@@ -1,4 +1,4 @@
-export default class User{
+export default class User {
 
     constructor({
         id,
@@ -13,5 +13,4 @@ export default class User{
         this.email = email;
         this.role_id = role_id;
     }
-
-};
+}

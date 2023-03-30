@@ -1,11 +1,9 @@
 import { Router } from "express";
-import { createValidator } from 'express-joi-validation'
 
 import UserController from "../controllers/user.controller.js";
 
 const router = Router();
 const userController = new UserController();
-const validator = createValidator();
 
 
 router.post('/register',

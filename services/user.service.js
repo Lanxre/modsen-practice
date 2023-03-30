@@ -1,5 +1,4 @@
 import db from "../database/db.js"
-import UserDTO from "../dtos/user.dto.js";
 import User from "../models/user.model.js";
 
 export default class UserService{
