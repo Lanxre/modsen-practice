@@ -57,4 +57,22 @@ export default class MeetUpController {
             res.json(meetUp);
         }
     }
+    async registerToMeetUp(req, res){
+        const userId = req.user.id;
+        const meetUpId = req.query.id;
+
+        const isMeetExist = await this.service.isExistMeetUpById(meetUpId)
+
+        if(!isMeetExist){
+            res.status(404).json({message: 'invalid meet up id'})
+        }else{
+            const isRegister = await this.service.registerToMeetUp({userId: userId, meetUpId: meetUpId})
+        
+            if(!isRegister){
+                res.status(404).json({message: 'some error'})
+            }else{
+                res.json(isRegister)
+            }
+        }
+    }
 }
