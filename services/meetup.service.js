@@ -1,5 +1,6 @@
 import db from "../database/db.js"
 import MeetUp from "../models/meetup.model.js";
+import RegisterMeetUp from "../models/reg.meetup.model.js";
 
 export default class MeetUpService{
     
@@ -172,5 +173,39 @@ export default class MeetUpService{
         }
 
         return new MeetUp(meetUpResult);
+    }
+
+    /**
+     * A Method designed to store data in a database
+     * @param {object} registerData
+     * @returns {RegisterMeetUp | null} If the object was created, it will return successfully
+     */
+    async registerToMeetUp(registerData){
+
+        const sql = `INSERT INTO register_to_meetup (user_id, meet_id) ` +
+        `values ($1, $2) RETURNING *`;
+
+        const registerResult = await db.query(sql,
+            [registerData.userId, registerData.meetUpId]
+        );
+        const registerMeetup = new RegisterMeetUp(registerResult.rows[0]);
+        
+        return registerMeetup;
+
+    }
+
+    /**
+     * A method that verifies meet up
+     * @param {number} id - meet up id
+     * @returns {boolean} - true || false
+     */
+    async isExistMeetUpById(id){
+        const sql = `select exists(select 1 from meetup where id=$1);`;
+
+        const result = await db.query(sql,
+            [id]
+        );
+        
+        return result.rows[0].exists;
     }
 }

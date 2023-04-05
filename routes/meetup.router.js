@@ -16,6 +16,11 @@ router.post('/meet-up',
             validator.body(MeetUpSchema),
             meetupController.createMeet.bind(meetupController));
 
+router.post('/register-meet-up',
+            requireAuth,
+            validator.query(MeetUpIdSchema),
+            meetupController.registerToMeetUp.bind(meetupController));            
+
 router.get('/meet-up',
             requireAuth,
             meetupController.getMeets.bind(meetupController));
