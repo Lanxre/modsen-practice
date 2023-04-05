@@ -40,3 +40,10 @@ INSERT INTO role (name, description)
 VALUES
   ('admin', 'This role has full access to the system'),
   ('user', 'This role has limited access to the system');
+
+CREATE TABLE register_to_meetup (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL REFERENCES users(id),
+    meet_id INTEGER NOT NULL REFERENCES meetup(id),
+    status TEXT NOT NULL DEFAULT 'unregister'
+);
