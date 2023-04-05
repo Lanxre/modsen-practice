@@ -62,7 +62,7 @@
       },
       "get": {
         "security": [{
-          "jwt" : []
+          "Bearer" : []
         }],
         "summary": "Get a list of MeetUps",
         "description": "Retrieve a list of MeetUps filtered, sorted, paginated",
@@ -123,7 +123,7 @@
     "/meet-up/{id}": {
       "get": {
         "security": [{
-          "jwt" : []
+          "Bearer" : []
         }],
         "summary": "Get a one MeetUp",
         "description": "One MeetUp",
@@ -151,7 +151,7 @@
       },
       "put": {
         "security": [{
-          "jwt" : []
+          "Bearer" : []
         }],
         "summary": "Update a one MeetUp",
         "description": "Update MeetUp By Id",
@@ -189,7 +189,7 @@
       },
       "delete": {
         "security": [{
-          "jwt" : []
+          "Bearer" : []
         }],
         "summary": "Delete a one MeetUp",
         "description": "Delete MeetUp By Id",
@@ -329,7 +329,7 @@
         "tags": ["Users"],
         "parameters": [
           {
-            "in": "body",
+            "in": "query",
             "name": "Refresh Token",
             "description": "token",
             "required" : "true",
@@ -359,6 +359,42 @@
             
           }
         }
+    }
+  },
+  "/register-meet-up":{
+    "post": {
+      "security": [{
+        "Bearer" : []
+      }],
+      "summary": "Register to meetUp",
+      "description": "send id meet up to register",
+      "tags": ["MeetUp"],
+      "parameters": [
+        {
+          "name": "id",
+          "required": "true",
+          "in": "query",
+          "description": "MeetUp Id to register",
+          "schema": {
+            "type": "number"
+          }
+        }
+      ],
+      "responses": {
+        "200":{
+          "description": "Good response",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "message": {
+                "type" : "string",
+                "example": "string"
+              }
+            }
+          }
+          
+        }
+      }
     }
   }
   },
