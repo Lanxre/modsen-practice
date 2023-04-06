@@ -6,17 +6,22 @@ export default class MeetUpController {
     constructor(){
         this.service = new MeetUpService();
     }
+
     async createMeet(req, res){
         const meetUpDto = new MeetUpDTO(req.body);
         const meetUp = await this.service.createMeetUp(meetUpDto);
         
         res.json(meetUp);
     }
+
     async getMeets(req, res){
-        let meetUps = await this.service.getMeetUps();
+        let meetUps = this.service.getMeetUps();
         
         if(req.query.filter){
-            meetUps = await this.service.filter(meetUps, {filter_name: req.query.filter, filter_value: req.query.filter_value});
+            meetUps = this.service.filter(meetUps, {
+                filter_name: req.query.filter,
+                filter_value: req.query.filter_value
+            });
         }
         
         if(req.query.sort){
@@ -29,6 +34,7 @@ export default class MeetUpController {
         
         res.json(meetUps);
     }
+
     async getOneMeet(req, res){
         const meetUp = await this.service.getOneMeetUp(req.params.id);
 
@@ -39,6 +45,7 @@ export default class MeetUpController {
         }
 
     }
+
     async updateMeet(req, res){
         const meetUpDto = new MeetUpDTO({...req.body, id: req.params.id});
         const meetUpResult = await this.service.updateMeetUp(meetUpDto);
@@ -48,6 +55,7 @@ export default class MeetUpController {
             res.json(meetUpResult);
         }
     }
+
     async deleteMeet(req, res){
         const meetUp = await this.service.deleteMeetUp(req.params.id);
 
@@ -57,11 +65,12 @@ export default class MeetUpController {
             res.json(meetUp);
         }
     }
+
     async registerToMeetUp(req, res){
         const userId = req.user.id;
         const meetUpId = req.query.id;
 
-        const isMeetExist = await this.service.isExistMeetUpById(meetUpId)
+        const isMeetExist = this.service.isExistMeetUpById(meetUpId)
 
         if(!isMeetExist){
             res.status(404).json({message: 'invalid meet up id'})
