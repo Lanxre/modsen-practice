@@ -83,21 +83,25 @@ export default class MeetUpController {
     }
 
     async registerToMeetUp(req, res){
-        const userId = req.user.id;
-        const meetUpId = req.query.id;
+        try {
+            const userId = req.user.id;
+            const meetUpId = req.query.id;
 
-        const isMeetExist = await this.service.isExistMeetUpById(meetUpId)
+            const isMeetExist = await this.service.isExistMeetUpById(meetUpId)
 
-        if(!isMeetExist){
-            res.status(404).json({message: 'invalid meet up id'})
-        }else{
-            const isRegister = await this.service.registerToMeetUp({userId: userId, meetUpId: meetUpId})
-        
-            if(!isRegister){
-                res.status(404).json({message: 'some error'})
+            if(!isMeetExist){
+                res.status(404).json({message: 'invalid meet up id'})
             }else{
-                res.json(isRegister)
+                const isRegister = await this.service.registerToMeetUp({userId: userId, meetUpId: meetUpId})
+
+                if(!isRegister){
+                    res.status(404).json({message: 'some error'})
+                }else{
+                    res.json(isRegister)
+                }
             }
+        }catch (error){
+            res.status(500).json({ message: `Server error: ${error}` });
         }
     }
 }
