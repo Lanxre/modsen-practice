@@ -45,7 +45,7 @@ export default class MeetUpService{
     async getOneMeetUp(id){
         const meetUps = await db.query(`SELECT * FROM meetup where id = $1`, [id]);
 
-        return this.isExistMeet(meetUps.rows[0]);
+        return this.validateMeetUp(meetUps.rows[0]);
     }
 
     /**
@@ -63,7 +63,7 @@ export default class MeetUpService{
             [meetUpDto.theme_meet, meetUpDto.description_meet, meetUpDto.tags, meetUpDto.locate_meet, meetUpDto.id]
         );
 
-        return this.isExistMeet(meetUpResult.rows[0]);
+        return this.validateMeetUp(meetUpResult.rows[0]);
     }
 
     /**
@@ -77,7 +77,7 @@ export default class MeetUpService{
             'DELETE FROM meetup where id = $1 RETURNING *',
             [id]
         );
-        return this.isExistMeet(meetUpResult.rows[0]);
+        return this.validateMeetUp(meetUpResult.rows[0]);
     }
 
     /**
@@ -133,9 +133,7 @@ export default class MeetUpService{
             locate_meet: (a, b) => (a.locate_meet > b.locate_meet ? 1 : -1),
         }
 
-        const sortedMeetUps = meetUps.sort(sortFunctions[sortOption]);
-
-        return sortedMeetUps;
+        return meetUps.sort(sortFunctions[sortOption]);
     }
 
     /**
@@ -154,25 +152,26 @@ export default class MeetUpService{
             locate_meet: (meet) => meet.locate_meet.toLowerCase().includes(filterOption.filter_value.toLowerCase()),
         };
 
-        const filterMeetUps = meetUps.filter(filterFunctions[filterOption.filter_name]);
-
-        return filterMeetUps;
+        return meetUps.filter(filterFunctions[filterOption.filter_name]);
     }
 
     /**
      * A method that allows you to check the correctness of the data
      * @param {object} meetUpResult - Data from the database
-     * @returns {MeetUp | object} - Object with error or new MeetUp
+     * @returns {MeetUp} - New MeetUp object
      */
 
-    async isExistMeet(meetUpResult){
-        if(!meetUpResult){
+    async validateMeetUp(meetUpResult){
+        try {
+            if (!meetUpResult) {
+                throw new Error("Invalid ID");
+            }
+            return new MeetUp(meetUpResult);
+        } catch (error) {
             return {
-                "message": "invalid id"
+                message: error.message,
             };
         }
-
-        return new MeetUp(meetUpResult);
     }
 
     /**
@@ -188,10 +187,8 @@ export default class MeetUpService{
         const registerResult = await db.query(sql,
             [registerData.userId, registerData.meetUpId]
         );
-        const registerMeetup = new RegisterMeetUp(registerResult.rows[0]);
-        
-        return registerMeetup;
 
+        return new RegisterMeetUp(registerResult.rows[0]);
     }
 
     /**
