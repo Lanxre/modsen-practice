@@ -88,9 +88,7 @@ export default class MeetUpService{
      * @returns {object} An object that stores a list of data divided into two parameters
      */
 
-    async pagination(paginationOption){
-        const page = parseInt(paginationOption.page) || 1; 
-        const limit = parseInt(paginationOption.limit) || 5;
+    async pagination(page, limit){
         const startIndex = (page - 1) * limit;
         const endIndex = page * limit;
         const results = {};

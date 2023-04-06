@@ -8,61 +8,77 @@ export default class MeetUpController {
     }
 
     async createMeet(req, res){
-        const meetUpDto = new MeetUpDTO(req.body);
-        const meetUp = await this.service.createMeetUp(meetUpDto);
-        
-        res.json(meetUp);
+        try {
+            const meetUpDto = new MeetUpDTO(req.body);
+            const meetUp = await this.service.createMeetUp(meetUpDto);
+
+            res.json(meetUp);
+        }catch (error){
+            res.status(500).json({ message: `Server error: ${error}` });
+        }
     }
 
     async getMeets(req, res){
-        let meetUps = this.service.getMeetUps();
-        
-        if(req.query.filter){
-            meetUps = this.service.filter(meetUps, {
-                filter_name: req.query.filter,
-                filter_value: req.query.filter_value
-            });
+        try {
+            const { filter, filter_value, sort, page, limit } = req.query;
+            let meetUps = await this.service.getMeetUps();
+
+            if (filter) {
+                meetUps = await this.service.filter(meetUps, { filter_name: filter, filter_value });
+            }
+
+            if (sort) {
+                await this.service.sort(meetUps, sort);
+            }
+
+            if (page || limit) {
+                meetUps = await this.service.pagination(req.query);
+            }
+
+            res.json(meetUps);
+        } catch (err) {
+            res.status(500).json({ message: 'Server error' });
         }
-        
-        if(req.query.sort){
-            this.service.sort(meetUps, req.query.sort);
-        }
-        
-        if(req.query.page || req.query.limit){
-            meetUps = await this.service.pagination(req.query);
-        }
-        
-        res.json(meetUps);
     }
 
     async getOneMeet(req, res){
-        const meetUp = await this.service.getOneMeetUp(req.params.id);
-
-        if(meetUp.message){
-            res.status(404).json(meetUp)
-        }else{
-            res.json(meetUp);
-        }
+       try {
+           const meetUp = await this.service.getOneMeetUp(req.params.id);
+           res.json(meetUp);
+       }catch (error){
+           res.status(500).json({ message: `Internal server error: ${error}` });
+       }
 
     }
 
     async updateMeet(req, res){
-        const meetUpDto = new MeetUpDTO({...req.body, id: req.params.id});
-        const meetUpResult = await this.service.updateMeetUp(meetUpDto);
-        if(meetUpResult.message){
-            res.status(404).json(meetUpResult)
-        }else{
-            res.json(meetUpResult);
+        try {
+            const meetUpDto = new MeetUpDTO({...req.body, id: req.params.id});
+            const updatedMeetUp = await this.service.updateMeetUp(meetUpDto);
+
+            res.json(updatedMeetUp);
+        } catch (error) {
+            if (error.message) {
+                res.status(422).json({message: error.message});
+            } else {
+                res.status(500).json({message: 'Internal server error'});
+            }
         }
+
     }
 
     async deleteMeet(req, res){
-        const meetUp = await this.service.deleteMeetUp(req.params.id);
+        try {
+            const meetUp = await this.service.deleteMeetUp(req.params.id);
 
-        if(meetUp.message){
-            res.status(404).json(meetUp)
-        }else{
-            res.json(meetUp);
+            if(meetUp.message){
+                res.status(404).json(meetUp)
+            }else{
+                res.json(meetUp);
+            }
+
+        }catch (error){
+            res.status(500).json({message: error.message})
         }
     }
 
@@ -70,7 +86,7 @@ export default class MeetUpController {
         const userId = req.user.id;
         const meetUpId = req.query.id;
 
-        const isMeetExist = this.service.isExistMeetUpById(meetUpId)
+        const isMeetExist = await this.service.isExistMeetUpById(meetUpId)
 
         if(!isMeetExist){
             res.status(404).json({message: 'invalid meet up id'})
