@@ -3,12 +3,12 @@ import { createValidator } from 'express-joi-validation'
 import { MeetUpSchema, MeetUpIdSchema } from "../schems/meetUp.schema.js";
 import { requireAuth, requireAdmin } from "../auth/passport.js";
 
-import MeetUpController from "../controllers/meetup.controller.js";
-
+import container from "../di-container/container.js";
 
 const router = Router();
-const meetupController = new MeetUpController();
+const meetupController = container.resolve('meetupController')
 const validator = createValidator()
+
 
 router.post('/meet-up',
             requireAuth,

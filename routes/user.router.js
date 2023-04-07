@@ -1,9 +1,9 @@
 import { Router } from "express";
 
-import UserController from "../controllers/user.controller.js";
+import container from "../di-container/container.js";
 
 const router = Router();
-const userController = new UserController();
+const userController = container.resolve('userController')
 
 
 router.post('/register',

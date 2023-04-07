@@ -1,10 +1,10 @@
 import MeetUpDTO from "../dtos/meetup.dto.js"
-import MeetUpService from "../services/meetup.service.js"
 
 export default class MeetUpController {
 
-    constructor(){
-        this.service = new MeetUpService();
+    constructor({meetupService}){
+        this.service = meetupService;
+        
     }
 
     async createMeet(req, res){
@@ -36,8 +36,8 @@ export default class MeetUpController {
             }
 
             res.json(meetUps);
-        } catch (err) {
-            res.status(500).json({ message: 'Server error' });
+        } catch (error) {
+            res.status(500).json({ message: `Server error: ${error}` });
         }
     }
 
@@ -104,4 +104,5 @@ export default class MeetUpController {
             res.status(500).json({ message: `Server error: ${error}` });
         }
     }
+
 }

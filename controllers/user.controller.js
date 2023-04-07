@@ -1,5 +1,4 @@
 import UserDTO from "../dtos/user.dto.js"
-import UserService from "../services/user.service.js";
 import pkg_jwt from 'jsonwebtoken';
 import * as dotenv from 'dotenv';
 
@@ -8,9 +7,9 @@ dotenv.config();
 
 export default class UserController {
 
-    constructor(){
+    constructor({userService}){
         this.refreshTokens = [];
-        this.service = new UserService();
+        this.service = userService;
     }
 
     async registerUser(req, res){
