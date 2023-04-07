@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/Vittalius/modsen-practice#readme",
   "dependencies": {
+    "awilix": "^8.0.1",
+    "awilix-express": "^8.0.0",
     "body-parser": "^1.20.2",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
