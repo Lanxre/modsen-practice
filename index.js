@@ -4,7 +4,9 @@ import SwaggerUi from 'swagger-ui-express';
 import * as dotenv from 'dotenv';
 import meetUpRouter from './routes/meetup.router.js';
 import userRouter from './routes/user.router.js';
+import container from './di-container/container.js';
 import { passport } from './auth/passport.js';
+import { scopePerRequest } from 'awilix-express';
 
 
 dotenv.config();
@@ -16,6 +18,7 @@ const swaggerFile = JSON.parse(fs.readFileSync('./swagger/output.json'));
 
 app.use(express.json());
 app.use(passport.initialize());
+app.use(scopePerRequest(container))
 app.use('/api-doc', SwaggerUi.serve, SwaggerUi.setup(swaggerFile));
 app.use('/api', meetUpRouter);
 app.use('/api', userRouter);
