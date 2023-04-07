@@ -28,7 +28,7 @@ To start the express server, run the following
 npm run start:dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) and take a look around.
+Open [http://localhost:3000/api-doc](http://localhost:3000/api-doc) and take a look around.
 
 # database
 Postgresql is used as a database with the following fields
