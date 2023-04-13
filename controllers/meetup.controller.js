@@ -1,9 +1,11 @@
 import MeetUpDTO from "../dtos/meetup.dto.js"
+import eventMapper from "../utils/event.mapper.js";
 
 export default class MeetUpController {
 
-    constructor({meetupService}){
+    constructor({meetupService, googleCalendarSevice}){
         this.service = meetupService;
+        this.calendar = googleCalendarSevice;
         
     }
 
@@ -11,6 +13,9 @@ export default class MeetUpController {
         try {
             const meetUpDto = new MeetUpDTO(req.body);
             const meetUp = await this.service.createMeetUp(meetUpDto);
+            const event = eventMapper(meetUp);
+            
+            await this.calendar.insertEvent(event);
 
             res.json(meetUp);
         }catch (error){
